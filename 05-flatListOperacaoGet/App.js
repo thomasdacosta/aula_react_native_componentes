@@ -45,7 +45,7 @@ const App = () => {
   const renderItem = ({ item }) => (
       <Personagem
           item={item}
-          evento={() => alert(item.description)}
+          evento={() => alert(item.description == "" ? "Personagem sem descrição" : item.description)}
           link={item.thumbnail.path + "/portrait_medium.jpg"} />
   );
 
