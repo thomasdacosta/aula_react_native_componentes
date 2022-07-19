@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     SafeAreaView,
     StyleSheet,
@@ -19,8 +19,8 @@ const App = () => {
 
     const URL = "http://gateway.marvel.com/v1/public/" +
         "characters?ts=1" +
-        "&apikey=f59dbe01285f1d360542b5c47a9516e3" +
-        "&hash=0ea6be79e04ac1b0400d65ffc11088f9" +
+        "&apikey=e86a88c4f7a4bba3ca8f906aae765332" +
+        "&hash=47c61013a6606c3faf9b3f6725eb47b8" +
         "&nameStartsWith=" + personagem + "&orderBy=name&limit=100";
 
     const jsonRetornoVazio = [
@@ -51,7 +51,7 @@ const App = () => {
             .then((response) => {
                 if (response.status === 200) {
                     response.json().then(function (result) {
-                        if (result.data.results.length == 0) {
+                        if (result.data.results.length === 0) {
                             setJsonData(jsonRetornoVazio)
                             setTotalPersonagens(0)
                         } else {
@@ -69,13 +69,14 @@ const App = () => {
                 setJsonData(jsonRetornoVazio)
                 console.error(error);
             });
+
         setActivity(false);
     }
 
     /**
      * Executando a busca dos personagens na API da Marvel.
      */
-    React.useEffect(() => {
+    useEffect(() => {
         setPersonagem(PERSONAGEM_DEFAULT);
         BuscarPersonagens().then("");
     }, []);
@@ -128,8 +129,13 @@ const App = () => {
                 autoCorrect={false}
                 style={styles.textInput}
                 clearButtonMode="always"
-                defaultValue={PERSONAGEM_DEFAULT}
-                onChangeText={(value) => setPersonagem(value)}
+                placeholder={"Ex: " + PERSONAGEM_DEFAULT}
+                onChangeText={(value) => {
+                    setPersonagem(value);
+                }}
+                onEndEditing={e => {
+                    BuscarPersonagens().then("");
+                }}
             />
             <View style={styles.button}>
                 <Button title="Pesquisar"
@@ -185,7 +191,10 @@ const styles = StyleSheet.create({
         width: 350,
         marginHorizontal:20,
         paddingHorizontal:10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 10
     },
     button: {
         backgroundColor: 'grey',
