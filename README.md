@@ -12,6 +12,7 @@ Componentes básicos do React Native e seu funcionamento
 - [04 - flatList] - https://snack.expo.dev/@thomasdacostaprof/04---flatlist
 - [05 - flatListOperacaoGet] - https://snack.expo.dev/@thomasdacostaprof/05---flatlistoperacaoget
 - [06 - telaLogin] - https://snack.expo.dev/@thomasdacostaprof/06---telalogin
+- [07 - componentes] - https://snack.expo.dev/@thomasdacostaprof/07---componentes
 
 ## Configurando o Ambiente
 
