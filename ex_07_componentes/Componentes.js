@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, } from 'react-native';
 
 function Exemplo1() {
@@ -12,12 +12,12 @@ function Exemplo1() {
 const Exemplo2 = () => {
   return (
     <View style={{flex: 1,justifyContent: "center",alignItems: "center"}}>
-      <Text>Olá mundo - Exemplo 3</Text>
+      <Text>Olá mundo - Exemplo 2</Text>
     </View>
   )
 }
 
-const Exemplo3 = () => <View style={{flex: 1,justifyContent: "center",alignItems: "center"}}><Text>Olá mundo - Exemplo 4</Text></View>
+const Exemplo3 = () => <View style={{flex: 1,justifyContent: "center",alignItems: "center"}}><Text>Olá mundo - Exemplo 3</Text></View>
 
 const Exemplo4 = ({nome = "João", idade = 35}) => {
   return (

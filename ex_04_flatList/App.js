@@ -2,10 +2,6 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View, FlatList, Pressable, Image } from 'react-native';
 
 const App = () => {
-  const [mensagem, setMensagem] = React.useState("");
-  const [erro, setErro] = React.useState("");
-  const [jsonData, setJsonData] = React.useState("");
-
   const DATA = [
     {
       "id": 1009220,
@@ -63,7 +59,7 @@ const App = () => {
       </View>
   );
 
-  const renderItem = ({ item }) => (
+  const ExibirPersonagem = ({ item }) => (
       <Personagem
           item={item}
           evento={() => alert(item.description == "" ? "Personagem sem descrição" : item.description)}
@@ -74,7 +70,7 @@ const App = () => {
       <SafeAreaView style={styles.container}>
         <FlatList
             data={DATA}
-            renderItem={renderItem}
+            renderItem={ExibirPersonagem}
             keyExtractor={item => item.id}
         />
       </SafeAreaView>

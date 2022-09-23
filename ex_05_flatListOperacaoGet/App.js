@@ -1,29 +1,29 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from "react";
 import {
     SafeAreaView,
-    StyleSheet,
     Text,
     TextInput,
     View,
     FlatList,
-    Pressable,
-    Image, Button, ActivityIndicator
-} from 'react-native';
+    Button,
+    ActivityIndicator, Pressable, Image, StyleSheet,
+} from "react-native";
 
 const App = () => {
-    const PERSONAGEM_DEFAULT = "thor"
-    const [jsonData, setJsonData] = React.useState("");
-    const [personagem, setPersonagem] = React.useState(PERSONAGEM_DEFAULT);
-    const [activity, setActivity] = React.useState(false)
-    const [totalPersonagens, setTotalPersonagens] = React.useState(0)
+    const PERSONAGEM_DEFAULT = "thor";
+
+    const [jsonData, setJsonData] = useState("");
+    const [personagem, setPersonagem] = useState(PERSONAGEM_DEFAULT);
+    const [activity, setActivity] = useState(false);
+    const [totalPersonagens, setTotalPersonagens] = useState(0);
 
     const URL = "http://gateway.marvel.com/v1/public/" +
         "characters?ts=1" +
-        "&apikey=e86a88c4f7a4bba3ca8f906aae765332" +
-        "&hash=47c61013a6606c3faf9b3f6725eb47b8" +
+        "&apikey=f59dbe01285f1d360542b5c47a9516e3" +
+        "&hash=0ea6be79e04ac1b0400d65ffc11088f9" +
         "&nameStartsWith=" + personagem + "&orderBy=name&limit=100";
 
-    const jsonRetornoVazio = [
+    const JSON_RETORNO_VAZIO = [
         {
             "id": 1,
             "name": "Nenhum personagem encontrado. \nVamos ficar com Cap nos nossos corações.",
@@ -31,135 +31,99 @@ const App = () => {
             "modified": "2020-04-04T19:01:59-0400",
             "thumbnail": {
                 "path": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/537ba56d31087",
-                "extension": "jpg"
-            }
-        }
-    ]
+                "extension": "jpg",
+            },
+        },
+    ];
 
-    /**
-     * Função para buscar os personagens na API da Marvel.
-     *
-     * @returns {Promise<void>}
-     * @constructor
-     */
-    const BuscarPersonagens = async () => {
-        setTotalPersonagens(0)
-        setJsonData(null)
+    const MarvelApiClient = async (url, exibir) => {
+        await fetch(url, {
+            method: "GET",
+        }).then((response) => {
+            if (response.status === 200) {
+                response.json().then((result) => {
+                    if (result.data.results.length === 0)
+                        exibir(JSON_RETORNO_VAZIO, 0);
+                    else
+                        exibir(result.data.results, result.data.results.length);
+                });
+            } else
+                exibir(JSON_RETORNO_VAZIO, 0);
+        }).catch(() => exibir(JSON_RETORNO_VAZIO, 0));
+    };
+
+    const ExibirBusca = (json, total) => {
+        setJsonData(json);
+        setTotalPersonagens(total);
+    };
+
+    const BuscarPersonagem = () => {
+        setTotalPersonagens(0);
+        setJsonData(null);
         setActivity(true);
-
-        await fetch(URL)
-            .then((response) => {
-                if (response.status === 200) {
-                    response.json().then(function (result) {
-                        if (result.data.results.length === 0) {
-                            setJsonData(jsonRetornoVazio)
-                            setTotalPersonagens(0)
-                        } else {
-                            setJsonData(result.data.results)
-                            setTotalPersonagens(result.data.results.length)
-                        }
-                    });
-                } else {
-                    setTotalPersonagens(0)
-                    setJsonData(jsonRetornoVazio)
-                }
-            })
-            .catch((error) => {
-                setTotalPersonagens(0)
-                setJsonData(jsonRetornoVazio)
-                console.error(error);
-            });
-
+        MarvelApiClient(URL, ExibirBusca).then(() => {});
         setActivity(false);
-    }
+    };
 
-    /**
-     * Executando a busca dos personagens na API da Marvel.
-     */
     useEffect(() => {
         setPersonagem(PERSONAGEM_DEFAULT);
-        BuscarPersonagens().then("");
+        BuscarPersonagem();
     }, []);
 
-    /**
-     * Criando componente para exibir as informações do personagem.
-     *
-     * @param item
-     * @param evento
-     * @param link
-     * @returns {JSX.Element}
-     * @constructor
-     */
     const Personagem = ({item, evento, link}) => (
         <View>
             <Pressable onPress={evento}>
                 <Image
-                    style={styles.imagemPersonagem}
+                    style={Estilos.imagemPersonagem}
                     source={{
                         uri: link,
                     }}
                 />
-                <Text style={styles.paragraph}>{item.name}</Text>
+                <Text style={Estilos.paragraph}>{item.name}</Text>
             </Pressable>
         </View>
     );
 
-    /**
-     * Exibindo o item de um personagem
-     *
-     * @param item
-     * @returns {JSX.Element}
-     * @constructor
-     */
-    const ExibirPersonagem = ({item}) => (
+    const PersonagemItem = ({item}) => (
         <Personagem
             item={item}
             evento={() => alert(item.description === "" ? "Personagem sem descrição" : item.description)}
             link={item.thumbnail.path + "/portrait_uncanny.jpg"}/>
     );
 
-    /**
-     * Exibindo lista com os personagens encontrados na API da Marvel
-     */
     return (
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.personagem}></Text>
-            <Text style={styles.personagem}>Pesquisar Personagem:</Text>
+        <SafeAreaView style={Estilos.container}>
+            <Text style={Estilos.personagem}></Text>
+            <Text style={Estilos.personagem}>Pesquisar Personagem:</Text>
             <TextInput
                 autoCorrect={false}
-                style={styles.textInput}
+                style={Estilos.textInput}
                 clearButtonMode="always"
                 placeholder={"Ex: " + PERSONAGEM_DEFAULT}
-                onChangeText={(value) => {
-                    setPersonagem(value);
-                }}
-                onEndEditing={e => {
-                    BuscarPersonagens().then("");
-                }}
+                onChangeText={(value) => setPersonagem(value)}
+                onEndEditing={e => BuscarPersonagem()}
             />
-            <View style={styles.button}>
-                <Button title="Pesquisar"
-                        onPress={() => {
-                            setPersonagem(personagem);
-                            BuscarPersonagens().then("");
-                        }}
-                />
+            <View style={Estilos.button}>
+                <Button title="Pesquisar" onPress={() => {
+                    BuscarPersonagem()
+                }}/>
             </View>
             <View style={{marginTop: 10}}>
                 <ActivityIndicator size="large" animating={activity}/>
             </View>
-            <Text style={styles.personagem}>{totalPersonagens} Personagens Encontrados</Text>
+            <Text style={Estilos.personagem}>{totalPersonagens} Personagens Encontrados</Text>
             <FlatList
                 style="marginTop: 100"
                 data={jsonData}
-                renderItem={ExibirPersonagem}
+                renderItem={PersonagemItem}
                 keyExtractor={item => item.id}
             />
         </SafeAreaView>
-    )
-}
+    );
 
-const styles = StyleSheet.create({
+};
+
+const Estilos = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -189,8 +153,8 @@ const styles = StyleSheet.create({
         fontSize: 15,
         height: 40,
         width: 350,
-        marginHorizontal:20,
-        paddingHorizontal:10,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
         alignSelf: 'center',
         borderColor: 'black',
         borderWidth: 2,
