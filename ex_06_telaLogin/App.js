@@ -1,144 +1,132 @@
-import * as React from 'react';
-import { Text, View, StyleSheet, Platform,TextInput, TouchableOpacity,ActivityIndicator } from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native';
 
-//exemplo de validacao de login
-async function validateLogin(user,password,statusSetter,activitySetter){
-  if (user == "") {
-    alert("Digite o email")
-    return
-  }
+const MENSAGEM_EMAIL = "Digite o seu e-mail.";
+const MENSAGEM_SENHA = "Digite a sua senha.";
+const EMAIL = "eve.holt@reqres.in";
+const SENHA = "cityslicka";
 
-  if (password == "") {
-    alert("Digite a senha")
-    return
-  }
-
-  activitySetter(true)
-
-  var obj = { "email": user,
-    "password":password};
-
-  await fetch(
-      'https://reqres.in/api/login',
-      {
-        method: 'POST',
-        headers:
-            {
-              Accept: 'application/json',
-              'Content-Type': 'application/json'
-            },
-        body: JSON.stringify(obj)
-      }).then(response => {
-    if (response.status === 200) {
-      statusSetter('OK, autenticado')
-      response.text().then(function(result){
-        console.log(result);
-      });
-    } else {
-      statusSetter('Falha no login')
+const ValidateLogin = async (email, senha, status, activity) => {
+    if (email.trim().length === 0) {
+        alert(MENSAGEM_EMAIL);
+        return
     }
-    activitySetter(false)
-  })
-      .then(response => {
-        console.debug(response);
-      }).catch(error => {
-        console.error(error);
-      });
+
+    if (senha.trim().length === 0) {
+        alert(MENSAGEM_SENHA);
+        return;
+    }
+
+    activity(true);
+
+    let usuario = {
+        "email": email,
+        "password": senha
+    };
+
+    await fetch('https://reqres.in/api/login', {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            'Content-Type': "application/json"
+        },
+        body: JSON.stringify(usuario)
+    }).then(response => {
+        if (response.status === 200) {
+            response.text().then(function (result) {
+                status("Usuário autenticado com sucesso.");
+                console.log(result);
+            });
+        } else {
+            status(`Usuário ou senha inválidos => código: ${response.status}`);
+        }
+        activity(false)
+    }).catch(() => status("Não foi possivel executar o login."));
 }
 
-export default function App() {
+export default () => {
+    const [user, setUser] = useState('eve.holt@reqres.in')
+    const [password, setPassword] = useState('cityslicka')
+    const [status, setStatus] = useState('')
+    const [activity, setActivity] = useState(false)
 
-  const [user,setUser]=React.useState('eve.holt@reqres.in')
-  const [password,setPassword]=React.useState('cityslicka')
-  const [status,setStatus]=React.useState('')
-  const [activity,setActivity]=React.useState(false)
-
-  return (
-      <View style={styles.container}>
-        <Text style={styles.paragraph}>Minha tela de Login</Text>
-        <Text style={styles.loginLabel}>Email</Text>
-
-        <TextInput
-            autoCorrect = {false}
-            placeholder = "Digite seu email"
-            placeholderTextColor = "grey"
-            style = {styles.textInput}
-            clearButtonMode = "always"
-            defaultValue="eve.holt@reqres.in"
-            onChangeText={(value) => setUser(value)}
-        />
-
-        <Text style={styles.loginLabel}>Senha</Text>
-
-        <TextInput
-            autoCorrect = {false}
-            placeholder = "Digite seu senha"
-            placeholderTextColor = "grey"
-            secureTextEntry={true}
-            style = {styles.textInput}
-            clearButtonMode = "always"
-            defaultValue="cityslicka"
-            onChangeText={(value) => setPassword(value)}
-        />
-
-        <TouchableOpacity
-            onPress={()=>{
-              validateLogin(user,password,setStatus,setActivity)
-            }}>
-          <Text style={styles.button}>OK</Text>
-        </TouchableOpacity>
-
-        <View style={{marginTop:10}}>
-          <ActivityIndicator size="large" animating={activity}/>
+    return (
+        <View style={Estilos.container}>
+            <Text style={Estilos.paragraph}>Minha tela de Login</Text>
+            <Text style={Estilos.loginLabel}>E-mail:</Text>
+            <TextInput
+                autoCorrect={false}
+                placeholder={MENSAGEM_EMAIL}
+                placeholderTextColor="grey"
+                style={Estilos.textInput}
+                clearButtonMode="always"
+                defaultValue={EMAIL}
+                onChangeText={(value) => setUser(value)}
+            />
+            <Text style={Estilos.loginLabel}>Senha:</Text>
+            <TextInput
+                autoCorrect={false}
+                placeholder={MENSAGEM_SENHA}
+                placeholderTextColor="grey"
+                secureTextEntry={true}
+                style={Estilos.textInput}
+                clearButtonMode="always"
+                defaultValue={SENHA}
+                onChangeText={(value) => setPassword(value)}
+            />
+            <TouchableOpacity onPress={() => ValidateLogin(user, password, setStatus, setActivity)}>
+                <Text style={Estilos.button}>OK</Text>
+            </TouchableOpacity>
+            <View style={{marginTop: 10}}>
+                <ActivityIndicator size="large" animating={activity}/>
+            </View>
+            <Text style={Estilos.loginLabel}>{status}</Text>
         </View>
+    )
+};
 
-        <Text style={styles.loginLabel}>{status}</Text>
-      </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#202020',
-    padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  loginLabel: {
-    color: 'white',
-    marginTop: 10,
-    fontSize: 15,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  button:{
-    backgroundColor:'grey',
-    color:'white',
-    fontSize: 15,
-    width: 120,
-    height: 30,
-    marginTop: 20,
-    marginHorizontal:20,
-    paddingHorizontal:10,
-    textAlign: 'center',
-    alignSelf: 'center'
-  },
-  textInput: {
-    backgroundColor:'#666',
-    color:'white',
-    fontSize: 15,
-    height: 40,
-    width: 250,
-    marginTop: 20,
-    marginHorizontal:20,
-    paddingHorizontal:10,
-    alignSelf: 'center'
-  }
+const Estilos = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#202020',
+        padding: 8,
+    },
+    paragraph: {
+        margin: 24,
+        fontSize: 18,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    loginLabel: {
+        color: 'white',
+        marginTop: 10,
+        fontSize: 15,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    button: {
+        backgroundColor: 'grey',
+        color: 'white',
+        fontSize: 15,
+        width: 120,
+        height: 30,
+        marginTop: 20,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
+        textAlign: 'center',
+        alignSelf: 'center'
+    },
+    textInput: {
+        backgroundColor: '#666',
+        color: 'white',
+        fontSize: 15,
+        height: 40,
+        width: 250,
+        marginTop: 20,
+        marginHorizontal: 20,
+        paddingHorizontal: 10,
+        alignSelf: 'center'
+    }
 });
