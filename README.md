@@ -4,6 +4,18 @@
 
 Componentes básicos do React Native e seu funcionamento
 
+## Aulas
+
+**Aula 01** - Apresentação<br/>
+**Aula 02** - Conceitos de API REST<br/>
+**Aula 03** - Microsserviços e Spring Boot<br/>
+**Aula 04** - Docker e Conteinerização<br/>
+**Aula 05** - Reactive Native<br/>
+**Aula 06** - Componente com Estado<br/>
+**Aula 07** - Componentização<br/>
+**Aula 08** - FlatList<br/>
+**Aula 09** - Promise Fetch<br/>
+
 ## Link dos exemplos no Expo
 
 - [01 - olaMundo] - https://snack.expo.dev/@thomasdacostaprof/01---olamundo
