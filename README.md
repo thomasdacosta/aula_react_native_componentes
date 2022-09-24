@@ -14,7 +14,7 @@ Componentes básicos do React Native e seu funcionamento
 **Aula 06** - Componente com Estado<br/>
 **Aula 07** - Componentização<br/>
 **Aula 08** - FlatList<br/>
-**Aula 09** - Promise Fetch<br/>
+**Aula 09** - Promise e Fetch<br/>
 
 ## Link dos exemplos no Expo
 
