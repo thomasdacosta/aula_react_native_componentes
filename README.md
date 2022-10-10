@@ -65,6 +65,20 @@ Comando para criar um novo projeto com React Native:
 npx react-native init ex_08_reactNavigation
 ```
 
+## Instalar dependência do React Navigation
+
+Execute os seguintes comandos:
+
+```
+npm install @react-navigation/native-stack
+```
+
+Execute comando abaixo caso aconteça esse erro: https://stackoverflow.com/questions/69043806/requirenativecomponent-rnsscreenstackheaderconfig-was-not-found-in-the-uimana
+
+```
+npm install react-native-screens react-native-safe-area-context
+```
+
 ---
 
 Thomás da Costa - [https://thomasdacosta.com.br](https://thomasdacosta.com.br)
