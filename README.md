@@ -65,7 +65,7 @@ Comando para criar um novo projeto com React Native:
 npx react-native init ex_08_reactNavigation
 ```
 
-## Instalar dependência do React Navigation
+## Instalando a dependência do React Navigation
 
 Execute os seguintes comandos:
 
