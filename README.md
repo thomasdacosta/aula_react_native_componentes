@@ -69,7 +69,7 @@ npx react-native init ex_08_reactNavigation
 
 ## Instalando a dependência do React Navigation
 
-Execute os seguintes comandos:
+Execute o seguinte comando:
 
 ```
 npm install @react-navigation/native-stack
