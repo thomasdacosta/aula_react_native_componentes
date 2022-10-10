@@ -16,6 +16,7 @@ Componentes básicos do React Native e seu funcionamento
 **Aula 08** - FlatList<br/>
 **Aula 09** - Promise e Fetch<br/>
 **Aula 10** - React Navigation<br/>
+**Aula 11** - Modal<br/>
 
 ## Link dos exemplos no Expo
 
@@ -27,6 +28,7 @@ Componentes básicos do React Native e seu funcionamento
 - [06 - telaLogin] - https://snack.expo.dev/@thomasdacostaprof/06---telalogin
 - [07 - componentes] - https://snack.expo.dev/@thomasdacostaprof/07---componentes
 - [08 - reactNavigation] - https://snack.expo.dev/@thomasdacostaprof/08---reactnavigation
+- [09 - modal] - https://snack.expo.dev/@thomasdacostaprof/09---modal
 
 ## Configurando o Ambiente
 
