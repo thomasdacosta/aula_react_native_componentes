@@ -56,6 +56,14 @@ ANDROID_SDK_ROOT=C:\Users\<usuario>\AppData\Local\Android\Sdk
 
 - Links importantes:
   - https://expo.dev/
+  
+## Criando um novo projeto
+
+Comando para criar um novo projeto com React Native:
+
+```
+npx react-native init ex_08_reactNavigation
+```
 
 ---
 
