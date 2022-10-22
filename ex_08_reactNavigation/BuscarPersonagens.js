@@ -65,11 +65,13 @@ const App = () => {
     setActivity(false);
   };
 
+  // Evento é executado somente quando a tela é carregada
   useEffect(() => {
     setPersonagem(PERSONAGEM_DEFAULT);
     BuscarPersonagem();
   }, []);
 
+  // Evento é executado somente quando a tela é carregada
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -77,6 +79,16 @@ const App = () => {
     );
     return () => backHandler.remove();
   }, []);
+
+  // Sempre acionado quando a tela é renderizada
+  useEffect(() => {
+    console.warn("Atualizando totalmente a tela do aplicativo");
+  });
+
+  // Acionado somente quando o total de personagens é atualizado
+  useEffect(() => {
+    console.warn("Executa somente quando efetuamos uma pesquisa");
+  }, [totalPersonagens]);
 
   const Personagem = ({item, evento, link}) => (
     <View>
