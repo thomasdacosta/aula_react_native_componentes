@@ -11,12 +11,13 @@ Componentes básicos do React Native e seu funcionamento
 **Aula 03** - Microsserviços e Spring Boot<br/>
 **Aula 04** - Docker e Conteinerização<br/>
 **Aula 05** - Reactive Native<br/>
-**Aula 06** - Componente com Estado<br/>
+**Aula 06** - Hook - useState<br/>
 **Aula 07** - Componentização<br/>
 **Aula 08** - FlatList<br/>
 **Aula 09** - Promise e Fetch<br/>
 **Aula 10** - React Navigation<br/>
 **Aula 11** - Modal<br/>
+**Aula 12** - Hook - useEffect<br/>
 
 ## Link dos exemplos no Expo
 
