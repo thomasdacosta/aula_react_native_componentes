@@ -6,7 +6,7 @@ import {
   View,
   FlatList,
   Button,
-  ActivityIndicator, Pressable, Image, StyleSheet, BackHandler
+  ActivityIndicator, Pressable, Image, StyleSheet, BackHandler, Modal,
 } from "react-native";
 
 const App = () => {
@@ -16,6 +16,9 @@ const App = () => {
   const [personagem, setPersonagem] = useState(PERSONAGEM_DEFAULT);
   const [activity, setActivity] = useState(false);
   const [totalPersonagens, setTotalPersonagens] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [description, setDescription] = useState("");
+  const [name, setName] = useState("");
 
   const URL = "http://gateway.marvel.com/v1/public/" +
     "characters?ts=1" +
@@ -67,6 +70,7 @@ const App = () => {
 
   // Evento é executado somente quando a tela é carregada
   useEffect(() => {
+    console.warn("Evento é executado somente quando a tela é carregada");
     setPersonagem(PERSONAGEM_DEFAULT);
     BuscarPersonagem();
   }, []);
@@ -82,12 +86,12 @@ const App = () => {
 
   // Sempre acionado quando a tela é renderizada
   useEffect(() => {
-    console.warn("Atualizando totalmente a tela do aplicativo");
+    console.warn("Sempre acionado quando a tela é renderizada");
   });
 
   // Acionado somente quando o total de personagens é atualizado
   useEffect(() => {
-    console.warn("Executa somente quando efetuamos uma pesquisa");
+    console.warn("Acionado somente quando o total de personagens é atualizado");
   }, [totalPersonagens]);
 
   const Personagem = ({item, evento, link}) => (
@@ -107,12 +111,30 @@ const App = () => {
   const PersonagemItem = ({item}) => (
     <Personagem
       item={item}
-      evento={() => alert(item.description === "" ? "Personagem sem descrição" : item.description)}
+      evento={() => {
+        setName(item.name);
+        setDescription(item.description === "" ? "Personagem sem descrição" : item.description);
+        setModalVisible(true);
+      }}
       link={item.thumbnail.path + "/portrait_uncanny.jpg"}/>
   );
 
   return (
     <SafeAreaView style={Estilos.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}>
+        <View style={Estilos.centeredView}>
+          <View style={Estilos.modalView}>
+            <Text style={Estilos.modalTextTitle}>{name}</Text>
+            <Text style={Estilos.modalText}>{description}</Text>
+            <View style={Estilos.button}>
+              <Button onPress={() => setModalVisible(!modalVisible)} title="Fechar"/>
+            </View>
+          </View>
+        </View>
+      </Modal>
       <Text style={Estilos.personagem}></Text>
       <Text style={Estilos.personagem}>Pesquisar Personagem:</Text>
       <TextInput
@@ -195,6 +217,37 @@ const Estilos = StyleSheet.create({
     width: 200,
     height: 350,
     alignSelf: 'center',
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 15,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalTextTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    textAlign: "center"
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "justify"
   }
 });
 
