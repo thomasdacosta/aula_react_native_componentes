@@ -41,6 +41,7 @@ const App = () => {
   ];
 
   const MarvelApiClient = async (url, exibir) => {
+    setActivity(true);
     await fetch(url, {
       method: "GET",
     }).then((response) => {
@@ -54,6 +55,7 @@ const App = () => {
       } else
         exibir(JSON_RETORNO_VAZIO, 0);
     }).catch(() => exibir(JSON_RETORNO_VAZIO, 0));
+    setActivity(false);
   };
 
   const ExibirBusca = (json, total) => {
@@ -64,9 +66,9 @@ const App = () => {
   const BuscarPersonagem = () => {
     setTotalPersonagens(0);
     setJsonData(null);
-    setActivity(true);
+    //setActivity(true);
     MarvelApiClient(URL, ExibirBusca).then(() => {});
-    setActivity(false);
+    //setActivity(false);
   };
 
   // Evento é executado somente quando a tela é carregada
