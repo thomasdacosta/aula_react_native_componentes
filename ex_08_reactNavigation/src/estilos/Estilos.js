@@ -46,7 +46,7 @@ export default StyleSheet.create({
     marginTop: 20,
     marginHorizontal: 20,
     textAlign: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   imagemPersonagem: {
     width: 200,
@@ -88,5 +88,24 @@ export default StyleSheet.create({
     width: 250,
     height: 100,
     alignSelf: 'center'
+  },
+  detalhePersonagem: {
+    color: 'white',
+    marginTop: 10,
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  detalheDescricaoPersonagem: {
+    color: 'white',
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+    textAlign: 'justify',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
   },
 });

@@ -9,8 +9,9 @@ import {
   ActivityIndicator, Pressable, Image, StyleSheet, BackHandler, Modal,
 } from "react-native";
 import Estilos from '../estilos/Estilos';
+import DetalhesPersonagem from './DetalhesPersonagem';
 
-const App = () => {
+const App = ({navigation}) => {
   const PERSONAGEM_DEFAULT = "wolverine";
 
   const [jsonData, setJsonData] = useState("");
@@ -18,8 +19,7 @@ const App = () => {
   const [activity, setActivity] = useState(false);
   const [totalPersonagens, setTotalPersonagens] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
-  const [description, setDescription] = useState("");
-  const [name, setName] = useState("");
+  const [item, setItem] = useState(null);
 
   const URL = "http://gateway.marvel.com/v1/public/" +
     "characters?ts=1" +
@@ -66,14 +66,12 @@ const App = () => {
   const BuscarPersonagem = () => {
     setTotalPersonagens(0);
     setJsonData(null);
-    //setActivity(true);
     MarvelApiClient(URL, ExibirBusca).then(() => {});
-    //setActivity(false);
   };
 
   // Evento é executado somente quando a tela é carregada
   useEffect(() => {
-    console.warn("Evento é executado somente quando a tela é carregada");
+    //console.warn("Evento é executado somente quando a tela é carregada");
     setPersonagem(PERSONAGEM_DEFAULT);
     BuscarPersonagem();
   }, []);
@@ -89,12 +87,12 @@ const App = () => {
 
   // Sempre acionado quando a tela é renderizada
   useEffect(() => {
-    console.warn("Sempre acionado quando a tela é renderizada");
+    //console.warn("Sempre acionado quando a tela é renderizada");
   });
 
   // Acionado somente quando o total de personagens é atualizado
   useEffect(() => {
-    console.warn("Acionado somente quando o total de personagens é atualizado");
+    //console.warn("Acionado somente quando o total de personagens é atualizado");
   }, [totalPersonagens]);
 
   const Personagem = ({item, evento, link}) => (
@@ -115,8 +113,7 @@ const App = () => {
     <Personagem
       item={item}
       evento={() => {
-        setName(item.name);
-        setDescription(item.description === "" ? "Personagem sem descrição" : item.description);
+        setItem(item);
         setModalVisible(true);
       }}
       link={item.thumbnail.path + "/portrait_uncanny.jpg"}/>
@@ -130,9 +127,18 @@ const App = () => {
         visible={modalVisible}>
         <View style={Estilos.centeredView}>
           <View style={Estilos.modalView}>
-            <Text style={Estilos.modalTextTitle}>{name}</Text>
-            <Text style={Estilos.modalText}>{description}</Text>
-            <View style={Estilos.button}>
+            <Text style={Estilos.modalTextTitle}>{item?.name}</Text>
+            <Text style={Estilos.modalText}>{item?.description === "" ? "Personagem sem descrição" : item?.description}</Text>
+            <View style={{flexDirection:"row"}}>
+              <Button style={Estilos.button} onPress={() => {
+                setModalVisible(!modalVisible);
+                navigation.navigate("DetalhesPersonagem", {
+                  name : item.name,
+                  description: item.description,
+                  item: item
+                })
+              }} title="Detalhes"/>
+              <View style={{flex:0.1}}/>
               <Button onPress={() => setModalVisible(!modalVisible)} title="Fechar"/>
             </View>
           </View>

@@ -3,16 +3,17 @@ import { Text, View, StyleSheet, TextInput, ActivityIndicator, Button, Image, Sa
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ListaPersonagem from './ListaPersonagem';
+import DetalhesPersonagem from './DetalhesPersonagem';
 import Estilos from '../estilos/Estilos';
 
 const MENSAGEM_EMAIL = "Digite o seu e-mail.";
 const MENSAGEM_SENHA = "Digite a sua senha.";
-const EMAIL = "eve.holt@reqres.in";
+const EMAIL = "michael.lawson@reqres.in";
 const SENHA = "cityslicka";
 const Stack = createNativeStackNavigator();
 
 const TelaLogin = ({ navigation }) => {
-  const [user, setUser] = useState('eve.holt@reqres.in');
+  const [user, setUser] = useState('michael.lawson@reqres.in');
   const [password, setPassword] = useState('cityslicka');
   const [status, setStatus] = useState('');
   const [activity, setActivity] = useState(false);
@@ -128,6 +129,7 @@ const Login = () => {
             headerBackVisible: false }
         }
         />
+        <Stack.Screen name="DetalhesPersonagem" component={DetalhesPersonagem} options={{ title: 'Marvel Login - Detalhes' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
