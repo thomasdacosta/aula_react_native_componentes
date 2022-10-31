@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 export const PERSONAGEM_DEFAULT = "wolverine";
 
 const JSON_RETORNO_VAZIO = [

@@ -53,6 +53,10 @@ const App = ({ route, navigation }) => {
         <View><Text></Text></View>
         <View style={Estilos.alignVertical}>
           <Button style={Estilos.button} title="HQ´s" onPress={() => {
+            if (item.comics.items.length <= 0) {
+              alert("Personagem não possui nenhuma HQ.");
+              return;
+            }
             navigation.navigate("HQ", {
               item: item,
             });

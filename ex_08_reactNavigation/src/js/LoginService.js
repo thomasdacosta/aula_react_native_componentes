@@ -8,14 +8,22 @@ const ShowModal = (description, setModalVisible, setDescription) => {
   setDescription(description);
 };
 
-export default async (email, senha, navigation, setActivity, setModalVisible, setDescription) => {
+const ValidarCampos = (email, senha, setModalVisible, setDescription) => {
   if (email.trim().length === 0) {
     ShowModal(MENSAGEM_EMAIL, setModalVisible, setDescription);
-    return;
+    return false;
   }
 
   if (senha.trim().length === 0) {
     ShowModal(MENSAGEM_SENHA, setModalVisible, setDescription);
+    return false;
+  }
+
+  return true;
+}
+
+export default async (email, senha, navigation, setActivity, setModalVisible, setDescription) => {
+  if (!ValidarCampos(email, senha, setModalVisible, setDescription)) {
     return;
   }
 
