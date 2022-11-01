@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Image, Linking, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Button, Image, Linking, Modal, Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
 import Estilos from "../estilos/Estilos";
 
 const App = ({ route, navigation }) => {
@@ -53,14 +53,10 @@ const App = ({ route, navigation }) => {
         <View><Text></Text></View>
         <View style={Estilos.alignVertical}>
           <Button style={Estilos.button} title="HQ´s" onPress={() => {
-            if (item.comics.items.length <= 0) {
-              alert("Personagem não possui nenhuma HQ.");
-              return;
-            }
             navigation.navigate("HQ", {
               item: item,
             });
-          }} />
+          }} disabled={item.comics.items.length <= 0} />
           <View style={{ flex: 0.1 }} />
           <Button style={Estilos.button} title="Series" onPress={() => {
             navigation.navigate("Series", {
