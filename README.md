@@ -6,18 +6,27 @@ Componentes básicos do React Native e seu funcionamento
 
 ## Aulas
 
-**Aula 01** - Apresentação<br/>
-**Aula 02** - Conceitos de API REST<br/>
-**Aula 03** - Microsserviços e Spring Boot<br/>
-**Aula 04** - Docker e Conteinerização<br/>
-**Aula 05** - Reactive Native<br/>
-**Aula 06** - Hook - useState<br/>
-**Aula 07** - Componentização<br/>
-**Aula 08** - FlatList<br/>
-**Aula 09** - Promise e Fetch<br/>
-**Aula 10** - React Navigation<br/>
-**Aula 11** - Modal<br/>
-**Aula 12** - Hook - useEffect<br/>
+**Backend:**
+- Aula 01 – Apresentação;
+- Aula 02 – Conceitos de API REST;
+- Aula 03 – Microsserviços e Spring Boot;
+- Aula 04 – Docker e Conteinerização;
+
+**Frontend:**
+- Aula 05 – Básico de Javascript;
+- Aula 06 – React Native;
+- Aula 07 – Componentes Visuais;
+- Aula 08 – Conceitos de Hook - useState;
+- Aula 09 – Functions e Arrow Functions;
+- Aula 10 – Componentização;
+- Aula 11 – FlatList;
+- Aula 12 – Promise e Fetch;
+- Aula 13 – React Navigation;
+- Aula 14 – Modal;
+- Aula 15 – Hook - useEffect;
+- Aula 16 – Flexbox;
+- Aula 17 – Context e Redux;
+- Aula 18 – Bibliotecas React Native;
 
 ## Link dos exemplos no Expo
 
