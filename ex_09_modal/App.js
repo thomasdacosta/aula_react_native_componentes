@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Modal, Pressable, Button, Image} from 'react-native';
+import React, { useState } from "react";
+import { Text, View, StyleSheet, TextInput, ActivityIndicator, Modal, Button, Image } from "react-native";
 
 const MENSAGEM_EMAIL = "Digite o seu e-mail.";
 const MENSAGEM_SENHA = "Digite a sua senha.";
@@ -9,7 +9,7 @@ const SENHA = "cityslicka";
 const ValidateLogin = async (email, senha, status, activity, setModalVisible) => {
   if (email.trim().length === 0) {
     alert(MENSAGEM_EMAIL);
-    return
+    return;
   }
 
   if (senha.trim().length === 0) {
@@ -21,28 +21,28 @@ const ValidateLogin = async (email, senha, status, activity, setModalVisible) =>
 
   let usuario = {
     "email": email,
-    "password": senha
+    "password": senha,
   };
 
-  await fetch('https://reqres.in/api/login', {
+  await fetch("https://reqres.in/api/login", {
     method: "POST",
     headers: {
       Accept: "application/json",
-      'Content-Type': "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(usuario)
+    body: JSON.stringify(usuario),
   }).then(response => {
     if (response.status === 200) {
-      response.text().then(function (result) {
+      response.text().then(function(result) {
         status("Usuário autenticado com sucesso.");
         console.log(result);
       });
     } else {
       setModalVisible(true);
     }
-    activity(false)
+    activity(false);
   }).catch(() => status("Não foi possivel executar o login."));
-}
+};
 
 export default () => {
   const [user, setUser] = useState(EMAIL);
@@ -61,12 +61,12 @@ export default () => {
           <View style={Estilos.modalView}>
             <Text style={Estilos.modalText}>Usuários ou senha inválidos!!!</Text>
             <View style={Estilos.button}>
-              <Button onPress={() => setModalVisible(!modalVisible)} title="Fechar"/>
+              <Button onPress={() => setModalVisible(!modalVisible)} title="Fechar" />
             </View>
           </View>
         </View>
       </Modal>
-      <Image style={Estilos.logo} source={require('./marvelLogo.png')} />
+      <Image style={Estilos.logo} source={require("./marvelLogo.png")} />
       <Text style={Estilos.personagem}>E-mail:</Text>
       <TextInput
         autoCorrect={false}
@@ -89,65 +89,65 @@ export default () => {
         onChangeText={(value) => setPassword(value)}
       />
       <View style={Estilos.button}>
-        <Button onPress={() => ValidateLogin(user, password, setStatus, setActivity, setModalVisible)} title="Login"/>
+        <Button onPress={() => ValidateLogin(user, password, setStatus, setActivity, setModalVisible)} title="Login" />
       </View>
-      <View style={{marginTop: 10}}>
-        <ActivityIndicator size="large" animating={activity}/>
+      <View style={{ marginTop: 10 }}>
+        <ActivityIndicator size="large" animating={activity} />
       </View>
       <Text style={Estilos.personagem}>{status}</Text>
     </View>
-  )
+  );
 };
 
 const Estilos = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: '#191970',
+    justifyContent: "center",
+    backgroundColor: "#191970",
     padding: 20,
   },
   logo: {
     width: 250,
     height: 100,
-    alignSelf: 'center'
+    alignSelf: "center",
   },
   personagem: {
-    color: 'white',
+    color: "white",
     marginTop: 10,
     fontSize: 15,
-    fontWeight: 'bold',
-    textAlign: 'left',
+    fontWeight: "bold",
+    textAlign: "left",
   },
   textInput: {
-    backgroundColor: 'white',
-    color: 'black',
+    backgroundColor: "white",
+    color: "black",
     marginTop: 20,
     fontSize: 15,
     height: 40,
     width: 350,
     marginHorizontal: 20,
     paddingHorizontal: 10,
-    alignSelf: 'center',
-    borderColor: 'black',
+    alignSelf: "center",
+    borderColor: "black",
     borderWidth: 2,
-    borderRadius: 10
+    borderRadius: 10,
   },
   button: {
-    backgroundColor: 'grey',
-    color: 'white',
+    backgroundColor: "grey",
+    color: "white",
     fontSize: 15,
     width: 120,
     height: 35,
     marginTop: 20,
     marginHorizontal: 20,
-    textAlign: 'center',
-    alignSelf: 'center'
+    textAlign: "center",
+    alignSelf: "center",
   },
   centeredView: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
+    marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -158,19 +158,19 @@ const Estilos = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   textStyle: {
     color: "white",
     fontWeight: "bold",
-    textAlign: "center"
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
+    textAlign: "center",
+  },
 });

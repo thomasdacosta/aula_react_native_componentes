@@ -61,7 +61,8 @@ const App = () => {
         setTotalPersonagens(0);
         setJsonData(null);
         setActivity(true);
-        MarvelApiClient(URL, ExibirBusca).then(() => {});
+        MarvelApiClient(URL, ExibirBusca).then(() => {
+        });
         setActivity(false);
     };
 
@@ -113,7 +114,7 @@ const App = () => {
             </View>
             <Text style={Estilos.personagem}>{totalPersonagens} Personagens Encontrados</Text>
             <FlatList
-                style="marginTop: 100"
+                style={{marginTop: 100}}
                 data={jsonData}
                 renderItem={PersonagemItem}
                 keyExtractor={item => item.id}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
     center: {
@@ -18,9 +18,9 @@ const Saudacoes = (props) => {
 const App = () => {
     return (
         <View style={[styles.center, {top: 50}]}>
-            <Saudacoes name='José' />
-            <Saudacoes name='João' />
-            <Saudacoes name='Maria' />
+            <Saudacoes name='José'/>
+            <Saudacoes name='João'/>
+            <Saudacoes name='Maria'/>
         </View>
     );
 }

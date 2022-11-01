@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
 const App = () => {
     const [count, setCount] = useState(0);
@@ -7,7 +7,7 @@ const App = () => {
     return (
         <View style={styles.container}>
             <Text>Você clicou {count} vezes</Text>
-            <Button onPress={() => setCount(count + 1)} title="Clique aqui!!!" />
+            <Button onPress={() => setCount(count + 1)} title="Clique aqui!!!"/>
         </View>
     );
 };
