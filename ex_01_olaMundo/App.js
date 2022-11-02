@@ -9,7 +9,7 @@ const App = () => {
                 justifyContent: "center",
                 alignItems: "center"
             }}>
-            <Text>Olá mundo</Text>
+            <Text>Olá mundo do React Native</Text>
         </View>
     )
 }
