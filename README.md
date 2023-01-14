@@ -73,7 +73,7 @@ ANDROID_SDK_ROOT=C:\Users\<usuario>\AppData\Local\Android\Sdk
 
 Comando para criar um novo projeto com React Native:
 
-Especificar uma a versão para usar o Javascript como linguagem padrão. A partir da versão 0.71 a linguagem padrão é o TypeScript
+**IMPORTANTE:** Especificar a versão 0.70.x para usar o Javascript como linguagem padrão. A partir da versão 0.71 a linguagem padrão é o TypeScript.
 ```
 npx react-native init ex_08_reactNavigation --version 0.70.6
 ```
