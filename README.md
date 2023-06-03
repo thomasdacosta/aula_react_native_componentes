@@ -1,4 +1,4 @@
-# Senac - React Native Componentes
+# React Native Componentes
 
 ## Objetivo
 
